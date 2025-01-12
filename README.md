@@ -66,7 +66,7 @@ assert(db.open_db(), "Failed to open database.")
 ### Set data source
 
 However, now comes an important step: Adding the database connection
-to ``DataSource`` which is used by _Eloquent_ to access the SQLite instance.
+to ``DataSource`` which is used by _Eloquence_ to access the SQLite instance.
 
 ````GDScript
 DataSource.add(db)
@@ -74,7 +74,7 @@ DataSource.add(db)
 
 ## 💾 Note about database schemas
 
-_Eloquent_ expects a column named ``id`` which is used as a unique identifier
+_Eloquence_ expects a column named ``id`` which is used as a unique identifier
 for each row.
 
 ## ✒️ Writing a basic model
