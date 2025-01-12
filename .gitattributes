@@ -1,0 +1,11 @@
+# Normalize EOL for all files that Git considers text files.
+* text=auto eol=lf
+
+# Git LFS (Files related to SQLite)
+*.dll filter=lfs diff=lfs merge=lfs -text
+*.so filter=lfs diff=lfs merge=lfs -text
+*.wasm filter=lfs diff=lfs merge=lfs -text
+*.dylib filter=lfs diff=lfs merge=lfs -text
+*.plist filter=lfs diff=lfs merge=lfs -text
+*.a filter=lfs diff=lfs merge=lfs -text
+*.template_release filter=lfs diff=lfs merge=lfs -text

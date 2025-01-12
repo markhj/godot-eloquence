@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# IDE
+.idea/
+
+# Ignore everything in the storage directory except .gitkeep
+storage/*
+!storage/.gitkeep
+
