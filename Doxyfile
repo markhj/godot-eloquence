@@ -1,0 +1,24 @@
+PROJECT_NAME           = Godot Eloquence
+
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+FULL_SIDEBAR           = NO
+HTML_EXTRA_STYLESHEET  = vendor/doxygen-awesome-css/doxygen-awesome.css \
+                        vendor/doxygen-awesome-css/doxygen-awesome-sidebar-only.css
+HTML_COLORSTYLE        = LIGHT
+
+INPUT                  = docs
+
+USE_MDFILE_AS_MAINPAGE = docs/index.md
+
+OUTPUT_DIRECTORY       = storage/docs
+
+SHOW_FILES             = NO
+
+RECURSIVE              = YES
+
+GROUP_NESTED_COMPOUNDS = NO
+
+GENERATE_LATEX         = NO
+
+GENERATE_TODOLIST      = NO
