@@ -2,17 +2,11 @@ extends Node
 
 class_name QueryBuilder
 
-# TODO: Convert to an object on its own
-enum QueryType {
-	Select,
-	SelectSum,
-}
-var op_col: String
-var query_type: QueryType = QueryType.Select
+var query_type: QueryType = QueryType.new()
 
 var model: SQLiteModel
+
 var where_predicates: Array[WherePredicate]
-var map_to_models: bool = true
 
 var operator_mapping: Dictionary = {
 	"=": WherePredicate.Operator.Equals,
@@ -23,38 +17,15 @@ var operator_mapping: Dictionary = {
 var ordering = null
 var row_limit = null
 
-func from(set_model: SQLiteModel) -> QueryBuilder:
+func on(set_model: SQLiteModel) -> QueryBuilder:
 	model = set_model
 	return self
 
-func raw() -> QueryBuilder:
-	map_to_models = false
-	return self
-	
-func first():
-	var results = execute()
-	if results.size() > 0:
-		return results.front()
-	else:
-		return null
-
-func first_or_create(default: Dictionary):
-	var record = first()
-	if record:
-		return record
-	return model.make_instance().create(default)
-
-func execute(data_source: SQLite = null) -> Array:
-	if not data_source:
-		data_source = DataSource.get_default()
-	var list: Array
-	data_source.query_with_bindings(to_sql(), to_bindings())
-	for row in data_source.query_result:
-		if map_to_models:
-			list.append(model.make_instance().apply(row))
-		else:
-			list.append(row)
-	return list
+func do() -> QueryExecute:
+	assert(!!model, "Model is not set.")
+	var execute = QueryExecute.new()
+	execute.query_builder = self
+	return execute
 
 func where(column: String, operator_or_value, value = null) -> QueryBuilder:
 	var predicate = WherePredicate.new()
@@ -114,23 +85,44 @@ func to_bindings() -> Array[String]:
 		bindings.append(predicate.value)
 	return bindings
 
-func sum(column: String) -> int:
-	query_type = QueryType.SelectSum
-	op_col = column
+func sum(column: String) -> QueryBuilder:
+	return select_as_result(column, QueryType.Function.SUM)
+
+func count(column: String) -> QueryBuilder:
+	return select_as_result(column, QueryType.Function.COUNT)
+
+func minimum(column: String) -> QueryBuilder:
+	return select_as_result(column, QueryType.Function.MIN)
+
+func maximum(column: String) -> QueryBuilder:
+	return select_as_result(column, QueryType.Function.MAX)
+
+func avg(column: String) -> QueryBuilder:
+	return select_as_result(column, QueryType.Function.AVG)
 	
-	# TODO: IMPORTANT: map_to_models must be temporary (probably needs passed as arg.)
-	map_to_models = false
-	
-	var record = first()
-	if not record or record.result == null:
-		return 0
-	
-	return record.result
+func select_as_result(column: String, function: QueryType.Function) -> QueryBuilder:
+	query_type.primary_type = QueryType.PrimaryType.SelectAsResult
+	query_type.function = function
+	query_type.target_column = column
+	return self
 
 func to_sql() -> String:
+	# TODO: Parse in helper class
 	var query: String = "SELECT * FROM %s" % [model.get_table_name()]
-	if query_type == QueryType.SelectSum:
-		query = "SELECT SUM(%s) AS `result` FROM %s" % [op_col, model.get_table_name()]
+	if query_type.primary_type == QueryType.PrimaryType.SelectAsResult:
+		assert([
+			QueryType.Function.SUM,
+			QueryType.Function.COUNT,
+			QueryType.Function.MIN,
+			QueryType.Function.MAX,
+			QueryType.Function.AVG,
+		].find(query_type.function) >= 0, "Function not allowed in 'Select As Result' mode")
+		
+		query = "SELECT %s(%s) AS `result` FROM %s" % [
+			QueryType.Function.keys()[query_type.function],
+			query_type.target_column,
+			model.get_table_name(),
+		]
 	
 	if where_predicates.size() > 0:
 		var where_clause: String

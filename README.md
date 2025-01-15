@@ -48,6 +48,10 @@ Do _not_ copy the other files, such as the ``tools`` folder.
 
 Last step is to activate the plugin under **Project Settings &rarr; Addons**.
 
+## 📗 Documentation
+
+The documentation is available at [github.io](https://markhj.github.io/godot-eloquence/).
+
 ## ▶️ Getting started
 
 ### Connecting

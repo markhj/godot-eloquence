@@ -21,7 +21,7 @@ func setup_relations() -> void:
 	pass
 
 func query() -> QueryBuilder:
-	return QueryBuilder.new().from(make_instance())
+	return QueryBuilder.new().on(make_instance())
 
 func make_instance() -> SQLiteModel:
 	return get_script().new()
@@ -79,10 +79,10 @@ func _query(query: String, bindings: Array = []) -> Array:
 	return source.query_result
 
 func find(id: int):
-	return QueryBuilder.new().from(make_instance()).where("id", id).first()
+	return QueryBuilder.new().on(make_instance()).where("id", id).do().first()
 
 func newest():
-	return QueryBuilder.new().from(make_instance()).order_by("id", "desc").limit(1).first()
+	return QueryBuilder.new().on(make_instance()).order_by("id", "desc").limit(1).do().first()
 
 # TODO: Improve error handling when insert fails
 func create(data: Dictionary) -> SQLiteModel:

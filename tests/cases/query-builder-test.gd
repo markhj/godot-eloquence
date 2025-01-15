@@ -5,31 +5,6 @@ class_name QueryBuilderTest
 func test_all() -> void:
 	var builder = User.new().query()
 	assert_equals("SELECT * FROM users", builder.to_sql())
-
-func test_first() -> void:
-	assert_equals(1, User.new().query().first().get_id())
-	
-func test_first_or_create() -> void:
-	var test_email = "hello.world@example.com"
-	var query = User.new().query().where("email", test_email)
-	
-	# Integrity check:
-	assert_equals(3, User.new().count())
-	assert_equals(null, query.first())
-	
-	User.new().query().where("email", test_email).first_or_create({
-		"email": test_email,
-	})
-	
-	# Verify that the record has been created
-	assert_equals(4, User.new().count())
-	assert_equals(test_email, query.first().get_attr("email"))
-	
-	# Verify that the email is not created again
-	User.new().query().where("email", test_email).first_or_create({
-		"email": test_email,
-	})
-	assert_equals(4, User.new().count())
 	
 func test_where() -> void:
 	var builder = User.new().query()
@@ -67,3 +42,23 @@ func test_desc() -> void:
 func test_limit() -> void:
 	var builder = User.new().query().limit(5)
 	assert_equals("SELECT * FROM users LIMIT 5", builder.to_sql())
+	
+func test_sum() -> void:
+	var builder = User.new().query().sum("points")
+	assert_equals("SELECT SUM(points) AS `result` FROM users", builder.to_sql())
+	
+func test_count() -> void:
+	var builder = User.new().query().count("id")
+	assert_equals("SELECT COUNT(id) AS `result` FROM users", builder.to_sql())
+	
+func test_min() -> void:
+	var builder = User.new().query().minimum("id")
+	assert_equals("SELECT MIN(id) AS `result` FROM users", builder.to_sql())
+	
+func test_max() -> void:
+	var builder = User.new().query().maximum("id")
+	assert_equals("SELECT MAX(id) AS `result` FROM users", builder.to_sql())
+	
+func test_avg() -> void:
+	var builder = User.new().query().avg("points")
+	assert_equals("SELECT AVG(points) AS `result` FROM users", builder.to_sql())

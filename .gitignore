@@ -9,3 +9,5 @@
 storage/*
 !storage/.gitkeep
 
+# tmp files
+*.tmp

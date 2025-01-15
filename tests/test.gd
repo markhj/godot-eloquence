@@ -21,6 +21,7 @@ func _ready():
 		BasicModelTest.new(),
 		ModelIOTest.new(),
 		QueryBuilderTest.new(),
+		QueryExecuteTest.new(),
 		RelationsTest.new(),
 	])
 	
