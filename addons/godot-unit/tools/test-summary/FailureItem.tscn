@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg445jhcelmx4"]
+
+[ext_resource type="Script" path="res://addons/godot-unit/tools/test-summary/failure_item.gd" id="1_a5c58"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ei0ld"]
+font_size = 13
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ndct"]
+font_size = 13
+font_color = Color(0.497474, 0.497474, 0.497474, 1)
+
+[node name="FailureItem" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_a5c58")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LabelMessage" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Message"
+
+[node name="HBox_Expected" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/HBox_Expected"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Expected: "
+label_settings = SubResource("LabelSettings_ei0ld")
+
+[node name="LabelExpected" type="Label" parent="VBoxContainer/HBox_Expected"]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_ei0ld")
+
+[node name="HBox_Actual" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/HBox_Actual"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Actual: "
+label_settings = SubResource("LabelSettings_ei0ld")
+
+[node name="LabelActual" type="Label" parent="VBoxContainer/HBox_Actual"]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_ei0ld")
+
+[node name="HBox_Source" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelSource" type="Label" parent="VBoxContainer/HBox_Source"]
+layout_mode = 2
+text = "File: X"
+label_settings = SubResource("LabelSettings_1ndct")

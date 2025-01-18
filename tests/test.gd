@@ -6,6 +6,8 @@ var default_db: String = "res://tests/assets/default.sqlite"
 
 var db_path: String = "res://storage/temp_db.sqlite"
 
+@onready var test_summary: Control = $TestSummary
+
 func _ready():
 	db.path = db_path
 	
@@ -25,4 +27,4 @@ func _ready():
 		RelationsTest.new(),
 	])
 	
-	Results2ConsolePrinter.new().print_results(results)
+	test_summary.results = results

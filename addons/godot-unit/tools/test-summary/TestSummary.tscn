@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=3 uid="uid://drql267cec6xh"]
+
+[ext_resource type="Script" path="res://addons/godot-unit/tools/test-summary/test_summary.gd" id="1_q8w8y"]
+
+[sub_resource type="SystemFont" id="SystemFont_jc4ij"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a5fiq"]
+font = SubResource("SystemFont_jc4ij")
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_20u1t"]
+
+[node name="SelfTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q8w8y")
+
+[node name="HBox_Outer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 342.0
+offset_bottom = 81.0
+
+[node name="MG_Summary" type="MarginContainer" parent="HBox_Outer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBox_Summary" type="HBoxContainer" parent="HBox_Outer/MG_Summary"]
+layout_mode = 2
+
+[node name="VBox_Total" type="VBoxContainer" parent="HBox_Outer/MG_Summary/HBox_Summary"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Overline" type="Label" parent="HBox_Outer/MG_Summary/HBox_Summary/VBox_Total"]
+layout_mode = 2
+text = "Total"
+label_settings = SubResource("LabelSettings_a5fiq")
+
+[node name="LabelTotal" type="Label" parent="HBox_Outer/MG_Summary/HBox_Summary/VBox_Total"]
+layout_mode = 2
+text = "0"
+
+[node name="VBox_Passed" type="VBoxContainer" parent="HBox_Outer/MG_Summary/HBox_Summary"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Overline" type="Label" parent="HBox_Outer/MG_Summary/HBox_Summary/VBox_Passed"]
+layout_mode = 2
+text = "Passed"
+label_settings = SubResource("LabelSettings_a5fiq")
+
+[node name="LabelPassed" type="Label" parent="HBox_Outer/MG_Summary/HBox_Summary/VBox_Passed"]
+layout_mode = 2
+text = "0"
+
+[node name="VBox_Failed" type="VBoxContainer" parent="HBox_Outer/MG_Summary/HBox_Summary"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Overline" type="Label" parent="HBox_Outer/MG_Summary/HBox_Summary/VBox_Failed"]
+layout_mode = 2
+text = "Failed"
+label_settings = SubResource("LabelSettings_a5fiq")
+
+[node name="LabelFailed" type="Label" parent="HBox_Outer/MG_Summary/HBox_Summary/VBox_Failed"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_20u1t")
+
+[node name="MG_FailureList" type="MarginContainer" parent="HBox_Outer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBox_Outer/MG_FailureList"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+
+[node name="VBox_Failures" type="VBoxContainer" parent="HBox_Outer/MG_FailureList/ScrollContainer"]
+layout_mode = 2

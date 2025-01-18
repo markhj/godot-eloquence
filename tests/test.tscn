@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bop4rqplp4w8h"]
+[gd_scene load_steps=3 format=3 uid="uid://bop4rqplp4w8h"]
 
 [ext_resource type="Script" path="res://tests/test.gd" id="1_xirnl"]
+[ext_resource type="PackedScene" uid="uid://drql267cec6xh" path="res://addons/godot-unit/tools/test-summary/TestSummary.tscn" id="2_g6chl"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -10,3 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xirnl")
+
+[node name="TestSummary" parent="." instance=ExtResource("2_g6chl")]
+layout_mode = 1
