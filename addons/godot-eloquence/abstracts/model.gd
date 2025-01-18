@@ -199,15 +199,6 @@ func reload() -> void:
 	)
 	apply(records[0])
 
-func count() -> int:
-	return query_table_meta("COUNT(id)")
-
-func max_id() -> int:
-	return query_table_meta("MAX(id)")
-
-func query_table_meta(select: String) -> int:
-	return _query("SELECT %s AS result FROM %s" % [select, get_table_name()])[0]["result"]
-
 func all() -> Array:
 	var list: Array
 	for record in _query("SELECT * FROM %s" % [get_table_name()], []):

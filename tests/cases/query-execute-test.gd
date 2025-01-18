@@ -13,7 +13,7 @@ func test_first_or_create() -> void:
 	var query = User.new().query().where("email", test_email)
 	
 	# Integrity check:
-	assert_equals(3, User.new().count())
+	assert_equals(3, User.new().query().count().do().get_result())
 	assert_equals(null, query.do().first())
 	
 	User.new().query().where("email", test_email).do().first_or_create({
@@ -21,11 +21,11 @@ func test_first_or_create() -> void:
 	})
 	
 	# Verify that the record has been created
-	assert_equals(4, User.new().count())
+	assert_equals(4, User.new().query().count().do().get_result())
 	assert_equals(test_email, query.do().first().get_attr("email"))
 	
 	# Verify that the email is not created again
 	User.new().query().where("email", test_email).do().first_or_create({
 		"email": test_email,
 	})
-	assert_equals(4, User.new().count())
+	assert_equals(4, User.new().query().count().do().get_result())

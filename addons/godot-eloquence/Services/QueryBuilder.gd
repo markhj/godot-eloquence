@@ -88,7 +88,7 @@ func to_bindings() -> Array[String]:
 func sum(column: String) -> QueryBuilder:
 	return select_as_result(column, QueryType.Function.SUM)
 
-func count(column: String) -> QueryBuilder:
+func count(column: String = "id") -> QueryBuilder:
 	return select_as_result(column, QueryType.Function.COUNT)
 
 func minimum(column: String) -> QueryBuilder:

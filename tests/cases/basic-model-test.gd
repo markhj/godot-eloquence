@@ -9,12 +9,6 @@ func test_find() -> void:
 func test_newest() -> void:
 	assert_equals(3, User.new().newest().get_id())
 
-func test_count() -> void:
-	assert_equals(2, User.new().count())
-	
-func test_max_id() -> void:
-	assert_equals(3, User.new().max_id())
-
 func test_reload() -> void:
 	var user = User.new().find(1)
 	

@@ -10,7 +10,7 @@ func test_create() -> void:
 	new_user.save()
 	
 	assert_equals(4, new_user.get_id())
-	assert_equals(3, User.new().count())
+	assert_equals(3, User.new().query().count().do().get_result())
 
 func test_save() -> void:
 	var user = User.new().find(3)
